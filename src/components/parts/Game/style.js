@@ -3,24 +3,26 @@
 import { styled } from 'styled-components'
 import Image from 'next/image'
 import { Text } from '@/components/shared/Text'
+import breakpoints from '@/styles/breakpoints'
 
 const Block = styled.div`
-	margin-bottom: 40px;
+	margin-bottom: 20px;
 
-	@media screen and (max-width: 768px) {
-		margin-bottom: 20px;
+	@media ${breakpoints.md} {
+		margin-bottom: 40px;
 	}
 `
 
 export const StyledGame = styled.div`
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	column-gap: 20px;
+
+	grid-template-columns: 1fr;
+	column-gap: 0;
 	row-gap: 20px;
 
-	@media screen and (max-width: 768px) {
-		grid-template-columns: 1fr;
-		column-gap: 0;
+	@media ${breakpoints.md} {
+		grid-template-columns: repeat(4, 1fr);
+		column-gap: 20px;
 	}
 `
 
@@ -29,14 +31,15 @@ export const GamePoster = styled.div`
 	flex-direction: column;
 `
 
-export const ImageContainer = styled(Image)`
+export const StyledImage = styled(Image)`
 	width: 100%;
-	height: 40%;
+
+	height: 100%;
 	border-radius: 12px;
 	object-fit: cover;
 
-	@media screen and (max-width: 768px) {
-		height: 100%;
+	@media ${breakpoints.md} {
+		height: 40%;
 	}
 `
 
@@ -48,14 +51,14 @@ export const GameRating = styled.div`
 `
 
 export const GameInfo = styled(Block)`
-	grid-area: 1 / 2 / 1 / 4;
+	grid-area: 2 / 1 / 2 / 3;
 
-	@media screen and (max-width: 1024px) {
+	@media ${breakpoints.md} {
 		grid-area: 1 / 2 / 1 / 5;
 	}
 
-	@media screen and (max-width: 768px) {
-		grid-area: 2 / 1 / 2 / 3;
+	@media ${breakpoints.lg} {
+		grid-area: 1 / 2 / 1 / 4;
 	}
 `
 
@@ -74,6 +77,7 @@ export const InfoList = styled(Block)`
 
 export const InfoRow = styled.div`
 	display: flex;
+	flex-direction: column;
 
 	${Text}:first-child {
 		flex: 0 0 30%;
@@ -85,7 +89,7 @@ export const InfoRow = styled.div`
 		margin-bottom: 10px;
 	}
 
-	@media screen and (max-width: 480px) {
-		flex-direction: column;
+	@media ${breakpoints.xs} {
+		flex-direction: row;
 	}
 `

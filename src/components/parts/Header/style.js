@@ -1,18 +1,23 @@
 'use client'
 
+import breakpoints from '@/styles/breakpoints'
 import Link from 'next/link'
 import { styled } from 'styled-components'
 
 export const StyledHeader = styled.header`
 	display: flex;
 	align-items: center;
-	padding: 25px 30px;
-	margin-bottom: 25px;
+	padding: 10px 15px;
+	margin-bottom: 15px;
 	border-bottom: 1px solid ${({ theme }) => theme.text.auxiliary};
 
-	@media screen and (max-width: 768px) {
-		padding: 10px 25px;
-		margin-bottom: 15px;
+	@media ${breakpoints.sm} {
+		padding: 10px 30px;
+		margin-bottom: 25px;
+	}
+
+	@media ${breakpoints.md} {
+		padding: 25px 30px;
 	}
 `
 

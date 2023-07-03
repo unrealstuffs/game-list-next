@@ -1,4 +1,3 @@
-import React from 'react'
 import { StyledBadge } from './style'
 
 const Badge = ({ count, size }) => {

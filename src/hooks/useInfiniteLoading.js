@@ -1,16 +1,21 @@
 import useSWRInfinite from 'swr/infinite'
 
-const useInfiniteLoading = (pageSize, fetcher) => {
+const useInfiniteLoading = (pageSize, fetcher, params) => {
 	const getKey = (pageIndex, previousPageData) => {
 		if (previousPageData && previousPageData.length === 0) {
 			return null // Reached the end, stop fetching
 		}
 
 		const page = pageIndex + 1
-		return `&page_size=${pageSize}&page=${page}`
+		const { search, platform, ordering } = params
+		const searchParams = `${search ? '&search=' + search : ''}${
+			platform ? '&platforms=' + platform : ''
+		}${ordering ? '&ordering=' + ordering : ''}`
+
+		return `&page_size=${pageSize}&page=${page}${searchParams}`
 	}
 
-	const { data, error, size, setSize, mutate } = useSWRInfinite(
+	const { data, error, size, setSize, isLoading } = useSWRInfinite(
 		getKey,
 		fetcher,
 		{
@@ -27,7 +32,7 @@ const useInfiniteLoading = (pageSize, fetcher) => {
 		error,
 		size,
 		setSize,
-		mutate,
+		isLoading,
 	}
 }
 

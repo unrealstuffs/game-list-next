@@ -1,7 +1,6 @@
-'use client'
-
 import { styled } from 'styled-components'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const StyledCard = styled(Link)`
 	border-radius: 12px;
@@ -23,6 +22,17 @@ export const GameImage = styled.div`
 	border-radius: 4px 4px 0 0;
 	height: 0;
 	padding-top: 100%;
+`
+
+export const StyledImage = styled(Image)`
+	object-fit: cover;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 `
 
 export const GameInfo = styled.div`

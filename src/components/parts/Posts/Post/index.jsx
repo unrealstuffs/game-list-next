@@ -1,7 +1,3 @@
-'use client'
-
-import Image from 'next/image'
-import React from 'react'
 import {
 	StyledCard,
 	GameInfo,
@@ -9,6 +5,7 @@ import {
 	GameTitle,
 	InfoList,
 	InfoRow,
+	StyledImage,
 } from './style'
 import Badge from '@/components/shared/Badge'
 import { Text } from '@/components/shared/Text'
@@ -20,21 +17,10 @@ const Post = ({ game }) => {
 		<StyledCard href={`game/${slug}`}>
 			<GameImage>
 				{background_image && (
-					<Image
+					<StyledImage
 						src={background_image}
 						fill
-						quality={70}
 						sizes='50vw'
-						style={{
-							objectFit: 'cover',
-							borderTopRightRadius: 12,
-							borderTopLeftRadius: 12,
-							position: 'absolute',
-							top: 0,
-							left: 0,
-							width: '100%',
-							height: '100%',
-						}}
 						alt={name}
 					/>
 				)}
@@ -43,7 +29,7 @@ const Post = ({ game }) => {
 				<GameTitle>{name}</GameTitle>
 				<InfoList>
 					<InfoRow>
-						<Text secondary='true'>Metascore Rating:</Text>
+						<Text $secondary>Metascore Rating:</Text>
 						{metacritic ? (
 							<Badge count={metacritic} size={30} />
 						) : (
@@ -51,8 +37,8 @@ const Post = ({ game }) => {
 						)}
 					</InfoRow>
 					<InfoRow>
-						<Text secondary='true'>Release Date:</Text>
-						{released ? <Text>{released}</Text> : <Text>N/A</Text>}
+						<Text $secondary>Release Date:</Text>
+						<Text>{released || 'N/A'}</Text>
 					</InfoRow>
 				</InfoList>
 			</GameInfo>

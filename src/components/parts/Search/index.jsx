@@ -1,13 +1,12 @@
 'use client'
 
 import useSWR from 'swr'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { StyledSearch } from './style'
 import { Input, Option, Select } from '../../shared/FormField'
 import { getPlatforms } from '@/services/getPlatforms'
-import { getAllGames, getGamesBySearch } from '@/services/getGames'
 import debounce from 'lodash.debounce'
-import useInfiniteLoading from '@/hooks/useInfiniteLoading'
+import { useSearch } from '@/store'
 
 const orderingOptions = [
 	{ id: 1, value: '', title: 'Relevance' },
@@ -19,43 +18,44 @@ const orderingOptions = [
 
 const Search = () => {
 	const { data: platforms, isLoading } = useSWR('platforms', getPlatforms)
-	const { setSize, mutate } = useInfiniteLoading(20, getAllGames)
+	const [formData, setFormData] = useSearch(state => [
+		state.formData,
+		state.setFormData,
+	])
+	const searchInputRef = useRef(null)
 
-	const [formData, setFormData] = useState({
-		search: '',
-		platform: '',
-		ordering: '',
-	})
+	const debouncedSearch = useRef(
+		debounce(value => {
+			setFormData({ ...formData, search: value })
+		}, 1000)
+	).current
 
 	useEffect(() => {
-		const delayedSearch = debounce(async () => {
-			const games = await getGamesBySearch(formData)
-			mutate(games)
-			setSize(1)
-		}, 1000)
-
-		delayedSearch()
-
 		return () => {
-			delayedSearch.cancel()
+			debouncedSearch.cancel()
 		}
-	}, [formData])
+	}, [])
+
+	const handleInputChange = e => {
+		const value = e.target.value
+		searchInputRef.current.value = value
+
+		debouncedSearch(value)
+	}
 
 	return (
 		<StyledSearch>
 			<Input
-				value={formData.search}
-				onChange={e =>
-					setFormData(prev => ({ ...prev, search: e.target.value }))
-				}
+				ref={searchInputRef}
+				onChange={handleInputChange}
 				placeholder='Search...'
 			/>
 			<Select
 				onChange={event =>
-					setFormData(prev => ({
-						...prev,
+					setFormData({
+						...formData,
 						platform: event.target.value,
-					}))
+					})
 				}
 			>
 				<Option value=''>All platforms</Option>
@@ -69,10 +69,10 @@ const Search = () => {
 			</Select>
 			<Select
 				onChange={event =>
-					setFormData(prev => ({
-						...prev,
+					setFormData({
+						...formData,
 						ordering: event.target.value,
-					}))
+					})
 				}
 			>
 				{orderingOptions.map(({ id, value, title }) => (

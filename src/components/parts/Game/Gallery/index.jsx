@@ -4,12 +4,11 @@ import { useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode, Navigation, Thumbs } from 'swiper'
 
-// Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
-import Image from 'next/image'
+import { StyledImage } from './style'
 
 const Gallery = ({ images }) => {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null)
@@ -35,17 +34,11 @@ const Gallery = ({ images }) => {
 			>
 				{images.map(({ id, image }) => (
 					<SwiperSlide key={id}>
-						<Image
+						<StyledImage
 							src={image}
 							width={0}
 							height={0}
 							sizes='100vw'
-							style={{
-								width: '100%',
-								height: 'auto',
-								borderRadius: 12,
-								marginBottom: 5,
-							}}
 							alt='cover image'
 						/>
 					</SwiperSlide>
@@ -62,16 +55,11 @@ const Gallery = ({ images }) => {
 			>
 				{images.map(({ id, image }) => (
 					<SwiperSlide key={id}>
-						<Image
+						<StyledImage
 							src={image}
 							width={0}
 							height={0}
 							sizes='100vw'
-							style={{
-								width: '100%',
-								height: 'auto',
-								borderRadius: 12,
-							}}
 							alt='cover image'
 						/>
 					</SwiperSlide>

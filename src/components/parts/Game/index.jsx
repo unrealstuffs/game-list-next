@@ -1,10 +1,8 @@
-'use client'
-
 import React from 'react'
 import {
 	StyledGame,
 	GamePoster,
-	ImageContainer,
+	StyledImage,
 	GameRating,
 	GameInfo,
 	GameDescription,
@@ -27,14 +25,21 @@ const Game = ({ game, screenshots }) => {
 	return (
 		<StyledGame>
 			<GamePoster>
-				<ImageContainer
-					src={background_image}
-					alt={name}
-					width={0}
-					height={0}
-				/>
+				{background_image && (
+					<StyledImage
+						src={background_image}
+						alt={name}
+						width={0}
+						height={0}
+					/>
+				)}
+
 				<GameRating>
-					<Badge size={40} count={metacritic} />
+					{metacritic ? (
+						<Badge count={metacritic} size={40} />
+					) : (
+						<Text>N/A</Text>
+					)}
 					<Text>Metascore Rating</Text>
 				</GameRating>
 			</GamePoster>
@@ -44,22 +49,24 @@ const Game = ({ game, screenshots }) => {
 				></GameDescription>
 				<InfoList>
 					<InfoRow>
-						<Text secondary='true'>Release Date:</Text>
-						<Text>{released}</Text>
+						<Text $secondary>Release Date:</Text>
+						<Text>{released || 'N/A'}</Text>
 					</InfoRow>
-					<InfoRow>
-						<Text secondary='true'>Game website:</Text>
-						<Text
-							as='a'
-							highlight='true'
-							href={website}
-							target='_blank'
-						>
-							{website}
-						</Text>
-					</InfoRow>
+					{website && (
+						<InfoRow>
+							<Text $secondary>Game website:</Text>
+							<Text
+								$highlight
+								as='a'
+								href={website}
+								target='_blank'
+							>
+								{website}
+							</Text>
+						</InfoRow>
+					)}
 				</InfoList>
-				<Gallery images={screenshots} />
+				{screenshots && <Gallery images={screenshots} />}
 			</GameInfo>
 		</StyledGame>
 	)

@@ -6,10 +6,10 @@ export const StyledBadge = styled.span`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: ${props => props.size + 'px'};
-	height: ${props => props.size + 'px'};
-	font-size: ${props => props.size / 2 + 'px'};
-	border-radius: ${props => props.size / 3.3 + 'px'};
+	width: ${({ size }) => size + 'px'};
+	height: ${({ size }) => size + 'px'};
+	font-size: ${({ size }) => size / 2 + 'px'};
+	border-radius: ${({ size }) => size / 3.3 + 'px'};
 	color: ${({ theme }) => theme.text.primary};
 	font-weight: bold;
 	background-color: ${({ theme, count }) => {

@@ -2,42 +2,41 @@
 
 import Post from './Post'
 import { StyledPosts } from './style'
-import { getAllGames } from '@/services/getGames'
-import { Text } from '@/components/shared/Text'
+import { getGames } from '@/services/getGames'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import useInfiniteLoading from '@/hooks/useInfiniteLoading'
+import { useSearch } from '@/store'
+import Message from './Message'
 
 const Posts = () => {
+	const formData = useSearch(state => state.formData)
 	const {
 		paginatedData: games,
 		error,
 		hasMore,
 		setSize,
 		size,
-	} = useInfiniteLoading(20, getAllGames)
+		isLoading,
+	} = useInfiniteLoading(20, getGames, formData)
 
-	if (error) return <Text>Error!</Text>
-	if (size === 1 && !games) return <Text>Loading...</Text>
+	if (error) return <Message>Error!</Message>
+	if (isLoading) return <Message>Loading...</Message>
+	if (games.length === 0 && !isLoading)
+		return <Message>Games not Found</Message>
 
 	return (
-		<>
-			{games.length === 0 ? (
-				<Text>Games not Found</Text>
-			) : (
-				<InfiniteScroll
-					dataLength={games.length}
-					next={() => setSize(size + 1)}
-					hasMore={hasMore}
-					loader={<Text>Loading more...</Text>}
-				>
-					<StyledPosts>
-						{games.map(game => (
-							<Post key={game.id} game={game} />
-						))}
-					</StyledPosts>
-				</InfiniteScroll>
-			)}
-		</>
+		<InfiniteScroll
+			dataLength={games.length}
+			next={() => setSize(size + 1)}
+			hasMore={hasMore}
+			loader={<Message>Loading more...</Message>}
+		>
+			<StyledPosts>
+				{games.map(game => (
+					<Post key={game.id} game={game} />
+				))}
+			</StyledPosts>
+		</InfiniteScroll>
 	)
 }
 
