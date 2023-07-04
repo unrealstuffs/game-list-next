@@ -11,7 +11,7 @@ export const GlobalStyles = createGlobalStyle`
 	body {
 		padding: 0;
 		margin: 0;
-		background-color: #020617;
+		background-color: ${({ theme }) => theme.bg.primary};
 	}
 
 	h1, h2, h3, h4, h5 {

@@ -1,4 +1,3 @@
-import React from 'react'
 import {
 	StyledGame,
 	GamePoster,
@@ -31,6 +30,7 @@ const Game = ({ game, screenshots }) => {
 						alt={name}
 						width={0}
 						height={0}
+						priority
 					/>
 				)}
 

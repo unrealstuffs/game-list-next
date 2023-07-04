@@ -7,6 +7,8 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import useInfiniteLoading from '@/hooks/useInfiniteLoading'
 import { useSearch } from '@/store'
 import Message from './Message'
+import { AiOutlineLoading } from 'react-icons/ai'
+import { Loader } from '@/components/shared/Loader'
 
 const Posts = () => {
 	const formData = useSearch(state => state.formData)
@@ -20,7 +22,12 @@ const Posts = () => {
 	} = useInfiniteLoading(20, getGames, formData)
 
 	if (error) return <Message>Error!</Message>
-	if (isLoading) return <Message>Loading...</Message>
+	if (isLoading)
+		return (
+			<Message>
+				<Loader />
+			</Message>
+		)
 	if (games.length === 0 && !isLoading)
 		return <Message>Games not Found</Message>
 
@@ -29,7 +36,12 @@ const Posts = () => {
 			dataLength={games.length}
 			next={() => setSize(size + 1)}
 			hasMore={hasMore}
-			loader={<Message>Loading more...</Message>}
+			loader={
+				<Message>
+					<Loader />
+				</Message>
+			}
+			style={{ overflow: 'inherit' }}
 		>
 			<StyledPosts>
 				{games.map(game => (

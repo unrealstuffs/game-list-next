@@ -1,4 +1,3 @@
-import React from 'react'
 import { StyledHeader, StyledLink } from './style'
 
 const Header = () => {

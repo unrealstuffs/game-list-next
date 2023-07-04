@@ -3,12 +3,12 @@
 import { useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode, Navigation, Thumbs } from 'swiper'
+import { StyledImage } from './style'
 
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import 'swiper/css/navigation'
 import 'swiper/css/thumbs'
-import { StyledImage } from './style'
 
 const Gallery = ({ images }) => {
 	const [thumbsSwiper, setThumbsSwiper] = useState(null)
@@ -61,6 +61,7 @@ const Gallery = ({ images }) => {
 							height={0}
 							sizes='100vw'
 							alt='cover image'
+							quality={60}
 						/>
 					</SwiperSlide>
 				))}

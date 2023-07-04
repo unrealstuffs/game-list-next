@@ -14,9 +14,11 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang='en'>
 			<body className={openSans.className}>
-				<GlobalStyles />
 				<StyledComponentsRegistry>
-					<Theme>{children}</Theme>
+					<Theme>
+						<GlobalStyles />
+						{children}
+					</Theme>
 				</StyledComponentsRegistry>
 			</body>
 		</html>

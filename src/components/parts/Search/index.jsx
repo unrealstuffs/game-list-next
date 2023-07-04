@@ -24,17 +24,19 @@ const Search = () => {
 	])
 	const searchInputRef = useRef(null)
 
+	// Creating a debounced search function using the debounce utility function
 	const debouncedSearch = useRef(
 		debounce(value => {
 			setFormData({ ...formData, search: value })
 		}, 1000)
 	).current
 
+	// Cancelling the debounced search function on component unmount
 	useEffect(() => {
 		return () => {
 			debouncedSearch.cancel()
 		}
-	}, [])
+	}, [debouncedSearch])
 
 	const handleInputChange = e => {
 		const value = e.target.value

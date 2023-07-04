@@ -5,14 +5,14 @@ import { PageTitle } from '@/components/shared/Title'
 import { getGameBySlug, getScreenshotsBySlug } from '@/services/getGames'
 
 export async function generateMetadata({ params: { slug } }) {
-	const game = await getGameBySlug(slug)
+	const { name } = await getGameBySlug(slug)
 
 	return {
-		title: game.name,
+		title: name,
 	}
 }
 
-export default async function Game({ params: { slug } }) {
+export default async function GamePage({ params: { slug } }) {
 	const game = await getGameBySlug(slug)
 	const screenshots = await getScreenshotsBySlug(slug)
 
