@@ -28,9 +28,10 @@ const Game = ({ game, screenshots }) => {
 					<StyledImage
 						src={background_image}
 						alt={name}
-						width={0}
-						height={0}
+						width={330}
+						height={512}
 						priority
+						sizes='100vw'
 					/>
 				)}
 

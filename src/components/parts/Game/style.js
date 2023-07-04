@@ -20,7 +20,7 @@ export const StyledGame = styled.div`
 	column-gap: 0;
 	row-gap: 20px;
 
-	@media ${breakpoints.md} {
+	@media ${breakpoints.lg} {
 		grid-template-columns: repeat(4, 1fr);
 		column-gap: 20px;
 	}
@@ -33,13 +33,8 @@ export const GamePoster = styled.div`
 
 export const StyledImage = styled(Image)`
 	width: 100%;
-	height: 100%;
 	border-radius: 12px;
 	object-fit: cover;
-
-	@media ${breakpoints.md} {
-		height: 40%;
-	}
 `
 
 export const GameRating = styled.div`
@@ -52,11 +47,11 @@ export const GameRating = styled.div`
 export const GameInfo = styled(Block)`
 	grid-area: 2 / 1 / 2 / 3;
 
-	@media ${breakpoints.md} {
+	@media ${breakpoints.lg} {
 		grid-area: 1 / 2 / 1 / 5;
 	}
 
-	@media ${breakpoints.lg} {
+	@media ${breakpoints.xl} {
 		grid-area: 1 / 2 / 1 / 4;
 	}
 `
